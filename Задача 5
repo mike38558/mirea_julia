@@ -1,0 +1,61 @@
+function dance(robot, d1, d2, d3, d4):Nothing
+    while (!isborder(robot, d1) || !ismarker(robot))
+        domark(robot)
+        while !isborder(robot, d3)
+            move!(robot, d3)
+            domark(robot)
+        end
+        if !isborder(robot, d1)
+            move!(robot, d1)
+            domark(robot)
+        end
+        while !isborder(robot, d4)
+            move!(robot, d4)
+            domark(robot)
+        end
+        if !isborder(robot, d1)
+            move!(robot, d1)
+            domark(robot)
+        end
+    end
+end
+
+function along(robot, dir):nothing
+    while !isborder(robot, dir)
+        move!(robot, dir)
+        domark(robot)
+    end
+end
+
+function spawn(robot, d1, d2, d3, d4):nothing
+    along(robot, d1)
+    along(robot, d2)
+    along(robot, d1)
+    along(robot, d2)
+    along(robot, d3)
+    along(robot, d4)
+    along(robot, d1)
+    along(robot, d2)
+    along(robot, d1)
+    along(robot, d2)
+end
+
+function domark(robot):nothing
+    if (isborder(robot, Ost) || isborder(robot, Sud) || isborder(robot, West) || isborder(robot, Nord))
+        putmarker!(robot)
+    end
+end
+
+function end(robot):nothing
+    spawn(robot, Nord, West, Sud, Ost)
+    dance(robot, Ost, West, Nord, Sud)
+
+    spawn(robot, Nord, Ost, Sud, West)
+    dance(robot, West, Ost, Sud, Nord)
+    
+    spawn(robot, Sud, Ost, Nord, West)
+    dance(robot, Nord, Sud, Ost, West)
+    
+    spawn(robot, Sud, West, Nord, Ost)
+    dance(robot, Sud, Nord, West, Ost)
+end
