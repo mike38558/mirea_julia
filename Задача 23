@@ -1,0 +1,17 @@
+function mirror(side)
+    if side == Nord return Sud
+    elseif side == Sud return Nord
+    else return side == West ? Ost : West
+    end
+end
+
+function perfect!(robot, side, flag = false)
+    if !isborder(robot, side) && !flag
+        move!(robot, side)
+        perfect!(robot, side)
+        move!(robot, side)
+    elseif !isborder(robot, mirror(side))
+        move!(robot, mirror(side))
+        perfect!(robot, side, true)
+    else return end
+end
