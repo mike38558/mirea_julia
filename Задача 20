@@ -1,0 +1,15 @@
+function mirror!(side)
+    if side == Nord return Sud
+    elseif side == Sud return Nord
+    else return side == West ? Ost : West
+    end
+end
+
+function longroad!(robot, side)
+    if isborder(robot, side) putmarker!(robot)
+    else
+        move!(robot, side)
+        longroad!(robot, side)
+        move!(robot, mirror(side))
+    end
+end
