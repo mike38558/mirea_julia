@@ -1,0 +1,6 @@
+function dvigaisya!(robot, side)
+    if !isborder(robot, side)
+        move!(robot, side)
+        dvigaisya!(robot, side)
+    end
+end
